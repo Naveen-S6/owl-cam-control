@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-10-15 (license)
+- Added an MIT license so others can use, modify and share the code in this public repo.
+
 ## 2026-10-15 (docs)
 - Rewrote README as a product page for publishing: features, the Kreo Owl Lite Amazon link, the media stream architecture (Mermaid diagram), meeting detection, settings, performance and project layout. Added `docs/meeting-popup.png`.
 

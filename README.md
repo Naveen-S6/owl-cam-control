@@ -170,4 +170,8 @@ While sending, the app decodes 1080p MJPEG and feeds the virtual camera at 30 fp
 
 Built with [comtypes](https://github.com/enthought/comtypes), [OpenCV](https://opencv.org/), [pyvirtualcam](https://github.com/letmaik/pyvirtualcam), [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter), [pystray](https://github.com/moses-palmer/pystray) and [Pillow](https://python-pillow.org/).
 
+## License
+
+[MIT](LICENSE)
+
 *Not affiliated with Kreo. "Owl Lite" is used only to identify the camera this was built and tested with.*
