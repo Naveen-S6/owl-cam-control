@@ -1,0 +1,6 @@
+comtypes==1.4.17
+customtkinter==6.0.0
+opencv-python==5.0.0.93
+pillow==12.3.0
+pystray==0.19.5
+pyvirtualcam==0.15.0
