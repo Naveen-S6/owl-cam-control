@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-15 (fix: meeting pop-up crash)
+- **Fixed "Something went wrong" when a meeting started.** The meeting pop-up is a plain Tk window holding CustomTkinter widgets. When it opened on a monitor with different display scaling, CTk's DPI tracker called `block_update_dimensions_event()` on it, which doesn't exist on a plain window. That raised AttributeError and also stopped DPI tracking app-wide. The pop-up window now provides those hooks. Regression test: `test_ui.py`.
+- **Camera scan no longer fails on an unnamed device.** One video device whose name couldn't be read (e.g. a virtual camera being installed or removed) made the whole scan error out. It's now skipped, keeping its index so preview indexes still match.
+
 ## 2026-10-15 (license)
 - Added an MIT license so others can use, modify and share the code in this public repo.
 

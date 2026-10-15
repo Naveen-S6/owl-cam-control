@@ -106,8 +106,12 @@ def list_video_devices():
         moniker, fetched = enum.Next(1)
         if not fetched:
             break
-        bag = moniker.BindToStorage(None, None, IPropertyBag._iid_).QueryInterface(IPropertyBag)
-        devices.append((bag.Read("FriendlyName", VARIANT(), None), moniker))
+        try:
+            bag = moniker.BindToStorage(None, None, IPropertyBag._iid_).QueryInterface(IPropertyBag)
+            name = bag.Read("FriendlyName", VARIANT(), None)
+        except comtypes.COMError:
+            name = None  # device mid-install/removal or a virtual camera without a name
+        devices.append((name or "", moniker))  # keep the slot: indexes must match OpenCV's CAP_DSHOW order
     return devices
 
 
@@ -163,7 +167,7 @@ class Camera:
 def find_camera(name_contains):
     """Return the first Camera whose name contains name_contains (case-insensitive), or None."""
     for index, (name, moniker) in enumerate(list_video_devices()):
-        if name_contains.lower() in name.lower():
+        if name and name_contains.lower() in name.lower():
             return Camera(name, index, moniker)
     return None
 

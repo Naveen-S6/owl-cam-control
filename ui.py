@@ -29,6 +29,21 @@ def cursor_work_area():
     return info.rcWork
 
 
+class _PopupWindow(tk.Toplevel):
+    """Plain Toplevel with the two hooks CTk's DPI tracker calls on every window holding CTk widgets.
+
+    Without them, opening a pop-up on a monitor with different scaling raised AttributeError
+    (and stopped CTk's DPI tracking for the whole app). CTkToplevel isn't used: its title-bar
+    handling hides/re-shows the window, which doesn't suit a borderless pop-up.
+    """
+
+    def block_update_dimensions_event(self):
+        """No-op: this window has no CTk size bookkeeping to pause."""
+
+    def unblock_update_dimensions_event(self):
+        """No-op counterpart of block_update_dimensions_event."""
+
+
 class Toast:
     """Always-on-top pop-up, bottom-right above the taskbar. Never takes keyboard focus.
 
@@ -42,7 +57,7 @@ class Toast:
         if Toast.current:
             Toast.current.close()
         Toast.current = self
-        self.win = tk.Toplevel(root, bg=BORDER)
+        self.win = _PopupWindow(root, bg=BORDER)
         self.win.overrideredirect(True)
         self.win.attributes("-topmost", True)
         body = ctk.CTkFrame(self.win, fg_color=CARD, corner_radius=0)
